@@ -2,7 +2,7 @@
 . /etc/init.d/functions
 
 LANG=en
-pwd="wuJIEtian1989"
+pwd="xxxxxx"
 port=22
 dsa_pub=`echo ~/.ssh/id_dsa.pub`
 scri_dir=/server/scripts
