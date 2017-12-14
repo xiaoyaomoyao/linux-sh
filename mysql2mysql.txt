@@ -1,0 +1,60 @@
+{
+    "job": {
+        "setting": {
+            "speed": {
+                "channel": 1
+            },
+            "errorLimit": {
+                "record": 0
+            }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "mysqlreader",
+                    "parameter": {
+                        "username": "替换成base-biz-metaservice的数据库的用户名",
+                        "password": "替换成base-biz-metaservice的数据库的密码",
+                        "column": [
+                            "*"
+                        ],
+                        "connection": [
+                            {
+                                "querySql": [
+                                    "select app_guid,name,'替换成对应云平台的名字' from base_meta_app"
+                                ],
+                                "jdbcUrl": [
+                                    "替换成base-biz-metaservice的数据库的url. 像这种格式jdbc:mysql://192.168.0.1:3306/xxxx?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&zeroDateTimeBehavior=convertToNull。把这串连接的ip，端口，数据库名替换掉就可以"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "writer": {
+                    "name": "mysqlwriter",
+                    "parameter": {
+                        "writeMode": "insert",
+                        "username": "替换成申请的RDS库的用户名",
+                        "password": "替换成申请的RDS库的密码",
+                        "column": [
+                            "app_guid",
+                            "name",
+                            "odps_cluster_name"
+                        ],
+                        "preSql": [
+                            "delete from base_meta_app_tmp where odps_cluster_name='替换成对应云平台的名字'"
+                        ],
+                        "connection": [
+                            {
+                                "jdbcUrl": "替换成新申请的那个RDS数据库的url. 像这种格式jdbc:mysql://192.168.0.1:3306/xxx?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&zeroDateTimeBehavior=convertToNull。把这串连接的ip，端口，数据库名替换掉就可以",
+                                "table": [
+                                    "base_meta_app_tmp"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
