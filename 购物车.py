@@ -20,9 +20,10 @@ def comm(goods_id):
 
 comm(goods_id)
 
-def jiesuan(shopping,salary):
+def jiesuan(shopping,salary,js='n'):
     print("您购买了: %s，您的余额: %s" % (shopping,salary))
-    sys.exit(0)
+    if js == 'y' or js == 'Y':
+        sys.exit(0)
 
 
 #购买
@@ -36,11 +37,8 @@ while True:
             print("余额不足.")
             print("您目前的购物车: %s,是否结算." % shopping)
             js=input(">>>(Y/N):")
-            if js == 'Y' or js == 'y':
-                jiesuan(shopping,salary)
-            else:
-                continue
+            jiesuan(shopping,salary,js)
         else:
             shopping.append(goods[b-1])
             salary=salary-goods[b-1][1]
-            print("您购买了: %s，您的余额: %s" % (shopping, salary))
+            jiesuan(shopping,salary)
